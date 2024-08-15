@@ -1,15 +1,24 @@
+import models.EstoqueDaoImpl;
+import models.Produto;
+
+import java.util.Random;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        var estoque = EstoqueDaoImpl.getInstance();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        mockData(estoque);
+    }
+
+    private static void mockData(EstoqueDaoImpl estoque) {
+        String[] nomeProdutos = {"Mouse", "Teclado", "Cadeira", "Mousepad", "Webcam", "Microfone", "Headset", "Notebook", "Pc", "Monitor"};
+        Double[] precoProdutos = {200.0, 300.0, 800.0, 100.0, 500.0, 250.0, 450.0, 3500.0, 5000.0, 780.0};
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            estoque.adicionarProduto(new Produto(i + 1, nomeProdutos[i], precoProdutos[i], random.nextInt(1, 100)));
         }
     }
 }
