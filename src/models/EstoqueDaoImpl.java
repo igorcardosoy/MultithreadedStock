@@ -6,10 +6,10 @@ import java.util.Map;
 
 public class EstoqueDaoImpl implements EstoqueDao {
     private static EstoqueDaoImpl instance;
-    private Map<Integer, Produto> produtos;
+    private final Map<Integer, Produto> produtos;
 
     private EstoqueDaoImpl() {
-        produtos = new HashMap<Integer, Produto>();
+        produtos = new HashMap<>();
     }
 
     public static synchronized EstoqueDaoImpl getInstance() {
