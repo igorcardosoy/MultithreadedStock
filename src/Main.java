@@ -10,6 +10,33 @@ public class Main {
         var estoque = EstoqueDaoImpl.getInstance();
 
         mockData(estoque);
+
+        //mostar estoque
+        estoque.buscarProdutos().forEach(System.out::println);
+
+        for (int i = 0; i < 10; i++) {
+            int finalI = i;
+            var thread = new Thread(() -> {
+                if (estoque.removerProduto(estoque.buscarProdutoPorId(finalI +1), 20))
+                    System.out.println(20 + " Produtos removido por "+ Thread.currentThread().getName() + " : " + estoque.buscarProdutoPorId(finalI +1));
+                else
+                    System.out.println("Produtos não removido por "+ Thread.currentThread().getName() + " : " + estoque.buscarProdutoPorId(finalI +1));}
+            );
+
+            var thread2 = new Thread(() -> {
+                if (estoque.removerProduto(estoque.buscarProdutoPorId(finalI +1), 15))
+                    System.out.println(15 + " Produtos removido por "+ Thread.currentThread().getName() + " : " + estoque.buscarProdutoPorId(finalI +1));
+                else
+                    System.out.println("Produtos não removido por "+ Thread.currentThread().getName() + " : " + estoque.buscarProdutoPorId(finalI +1));}
+            );
+
+            thread2.start();
+            thread.start();
+        }
+
+
+
+
     }
 
     private static void mockData(EstoqueDaoImpl estoque) {
@@ -18,7 +45,7 @@ public class Main {
         Random random = new Random();
 
         for (int i = 0; i < 10; i++) {
-            estoque.adicionarProduto(new Produto(i + 1, nomeProdutos[i], precoProdutos[i], random.nextInt(1, 100)));
+            estoque.adicionarProduto(new Produto(i + 1, nomeProdutos[i], precoProdutos[i], random.nextInt(1, 40)));
         }
     }
 }

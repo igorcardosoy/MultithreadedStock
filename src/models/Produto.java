@@ -30,8 +30,18 @@ public class Produto {
     }
 
     public void setQuantidade(int quantidade) {
-        if (quantidade > 0 && quantidade <= this.quantidade){
+        if (quantidade <= this.quantidade){
             this.quantidade += quantidade;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", preco=" + preco +
+                ", quantidade=" + quantidade +
+                '}';
     }
 }

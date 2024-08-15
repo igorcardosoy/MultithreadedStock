@@ -25,8 +25,19 @@ public class EstoqueDaoImpl implements EstoqueDao {
     }
 
     @Override
-    public synchronized Boolean removerProduto(Produto produto) {
-        return produtos.remove(produto.getId()) != null;
+    public synchronized Boolean removerProduto(Produto produto, int quantidade) {
+        if (produto == null) {
+            return false;
+        }
+
+        Produto produtoEstoque = produtos.get(produto.getId());
+
+        if (produtoEstoque.getQuantidade() < quantidade || quantidade < 0) {
+            return false;
+        }
+
+        produtoEstoque.setQuantidade(-quantidade);
+        return true;
     }
 
     @Override
